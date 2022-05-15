@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Nav from "./Nav"
 import {
   selectedProduct,
   removeSelectedProduct,addCart} from "../redux/action/productActions";
@@ -27,10 +28,23 @@ const ProductDetails = () => {
     };
   }, [productId]);
   const handelcart=(id)=>{
-    dispatch(addCart(id))
-     
+   // dispatch(addCart(id))
+   
+
+   axios.post('http://localhost:3000/cart', {
+       id: 6,
+       first_name: 'Fred',
+       last_name: 'Blair',
+       email: 'freddyb34@gmail.com'
+   }).then(resp => {
+       console.log(resp.data);
+   }).catch(error => {
+       console.log(error);
+   });
   }
   return (
+    <>
+    <Nav />
     <div className="ui grid container">
       {Object.keys(product).length === 0 ? (
         <div>...Loading</div>
@@ -60,7 +74,7 @@ const ProductDetails = () => {
           </div>
         </div>
       )}
-    </div>
+    </div></>
   );
 };
 
