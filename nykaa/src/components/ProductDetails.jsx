@@ -11,7 +11,7 @@ const ProductDetails = () => {
   let product = useSelector((state) => state.product);
   const {id, image, title, price, category, description } = product;
   const dispatch = useDispatch();
-  console.log(productId,id)
+
   const fetchProductDetail = async (productId) => {
     const response = await axios
       .get(`https://fakestoreapi.com/products/${productId}`)
@@ -29,18 +29,18 @@ const ProductDetails = () => {
   }, [productId]);
   const handelcart=(id)=>{
    // dispatch(addCart(id))
+   console.log(id)
+   const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify([id])
+};
+fetch('  http://localhost:3004/cart', requestOptions)
+    .then(response => response.json())
+    .then(data => console.log(data));
+    alert("your product is sucssfuly add to cart")
+  
    
-
-   axios.post('http://localhost:3000/cart', {
-       id: 6,
-       first_name: 'Fred',
-       last_name: 'Blair',
-       email: 'freddyb34@gmail.com'
-   }).then(resp => {
-       console.log(resp.data);
-   }).catch(error => {
-       console.log(error);
-   });
   }
   return (
     <>
@@ -67,7 +67,7 @@ const ProductDetails = () => {
                   <div >
                     <i ></i>
                   </div>
-                  <div style={{margin:"100px" ,textAlign:"center"}}><button onClick={()=>{handelcart(id)}}>Add to Cart</button></div>
+                  <div style={{margin:"100px" ,textAlign:"center"}}><button onClick={()=>{handelcart(product)}}>Add to Cart</button></div>
                 </div>
               </div>
             </div>
